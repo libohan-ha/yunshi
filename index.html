@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运势分析</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>运势分析</h1>
+            
+            <div class="selection-area">
+                <div class="select-group">
+                    <div id="zodiac-select" class="select-options hidden">
+                        <select id="zodiac" required size="12">
+                            <option value="">请选择星座</option>
+                            <option value="白羊座">白羊座 (3.21-4.19)</option>
+                            <option value="金牛座">金牛座 (4.20-5.20)</option>
+                            <option value="双子座">双子座 (5.21-6.21)</option>
+                            <option value="巨蟹座">巨蟹座 (6.22-7.22)</option>
+                            <option value="狮子座">狮子座 (7.23-8.22)</option>
+                            <option value="处女座">处女座 (8.23-9.22)</option>
+                            <option value="天秤座">天秤座 (9.23-10.23)</option>
+                            <option value="天蝎座">天蝎座 (10.24-11.22)</option>
+                            <option value="射手座">射手座 (11.23-12.21)</option>
+                            <option value="摩羯座">摩羯座 (12.22-1.19)</option>
+                            <option value="水瓶座">水瓶座 (1.20-2.18)</option>
+                            <option value="双鱼座">双鱼座 (2.19-3.20)</option>
+                        </select>
+                    </div>
+                    <div class="select-header" onclick="toggleSelect('zodiac-select')">
+                        <label for="zodiac">选择星座:</label>
+                        <span class="selected-value">请选择星座</span>
+                        <span class="toggle-icon">▲</span>
+                    </div>
+                </div>
+
+                <div class="select-group">
+                    <div id="mbti-select" class="select-options hidden">
+                        <select id="mbti" required size="16">
+                            <option value="">请选择MBTI</option>
+                            <option value="INTJ">INTJ - 建筑师</option>
+                            <option value="INTP">INTP - 逻辑学家</option>
+                            <option value="ENTJ">ENTJ - 指挥官</option>
+                            <option value="ENTP">ENTP - 辩论家</option>
+                            <option value="INFJ">INFJ - 提倡者</option>
+                            <option value="INFP">INFP - 调停者</option>
+                            <option value="ENFJ">ENFJ - 主人公</option>
+                            <option value="ENFP">ENFP - 竞选者</option>
+                            <option value="ISTJ">ISTJ - 物流师</option>
+                            <option value="ISFJ">ISFJ - 守卫者</option>
+                            <option value="ESTJ">ESTJ - 总经理</option>
+                            <option value="ESFJ">ESFJ - 执政官</option>
+                            <option value="ISTP">ISTP - 鉴赏家</option>
+                            <option value="ISFP">ISFP - 探险家</option>
+                            <option value="ESTP">ESTP - 企业家</option>
+                            <option value="ESFP">ESFP - 表演者</option>
+                        </select>
+                    </div>
+                    <div class="select-header" onclick="toggleSelect('mbti-select')">
+                        <label for="mbti">选择MBTI:</label>
+                        <span class="selected-value">请选择MBTI</span>
+                        <span class="toggle-icon">▲</span>
+                    </div>
+                </div>
+            </div>
+
+            <button id="analyze" class="glow-button">获取分析</button>
+
+            <div id="result" class="result-card hidden">
+                <div class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>正在分析中...</p>
+                </div>
+                <div class="content"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleSelect(id) {
+            const element = document.getElementById(id);
+            const allSelects = document.querySelectorAll('.select-options');
+            const currentHeader = element.previousElementSibling;
+            const allHeaders = document.querySelectorAll('.select-header');
+            
+            // 关闭其他所有下拉框
+            allSelects.forEach(select => {
+                if (select.id !== id && !select.classList.contains('hidden')) {
+                    select.classList.add('hidden');
+                    select.previousElementSibling.classList.remove('active');
+                }
+            });
+
+            // 切换当前下拉框
+            element.classList.toggle('hidden');
+            currentHeader.classList.toggle('active');
+        }
+
+        // 处理选项选择
+        document.querySelectorAll('select').forEach(select => {
+            select.addEventListener('change', function() {
+                const selectedText = this.options[this.selectedIndex].text;
+                const header = this.closest('.select-group').querySelector('.selected-value');
+                header.textContent = selectedText;
+                this.closest('.select-options').classList.add('hidden');
+                this.closest('.select-group').querySelector('.select-header').classList.remove('active');
+            });
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html> 
